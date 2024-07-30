@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends - Telegram Mini Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">Invite Buddies<br>to earn more SADS</div>
+        <div class="friends-list-title">Friends (3)</div> <!-- Update the number dynamically -->
+        <ul class="friends-list">
+            <li>JohnDoe <span class="sads">+200 SADS</span></li>
+            <li>JaneDoe <span class="sads">+200 SADS</span></li>
+            <li>DoeJohn <span class="sads">+200 SADS</span></li>
+        </ul>
+        
+        <div class="play-button invite-button">
+            Invite Friends
+        </div>
+        <div class="navigation">
+            <div class="nav-item">HOME</div>
+            <div class="nav-item">TASKS</div>
+            <div class="nav-item">FRIENDS</div>
+        </div>
+    </div>
+    <!-- Overlay for invitation link -->
+    <div id="invitation-overlay" class="invitation-overlay">
+        <div class="invitation-content">
+            <p>Your Invitation Link is:</p>
+            <p id="invitation-link"></p>
+            <button id="copy-link" class="black-button">Copy Link</button>
+            <button id="close-overlay" class="black-button">Close</button>
+        </div>
+    </div>
+    <script src="script.js"></script> <!-- Link to JavaScript for navigation and functionalities -->
+</body>
+</html>

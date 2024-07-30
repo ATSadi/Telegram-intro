@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-info">
+            <div id="timer">Time: 60</div>
+            <div id="score">Score: 0</div>
+        </div>
+        <div class="game-area" id="game-area">
+            <!-- Falling objects will be added here dynamically -->
+        </div>
+    </div>
+    <!-- Start screen -->
+    <div id="start-screen" class="overlay">
+        <div class="overlay-content">
+            <p>Welcome to the Game!</p>
+            <button id="start-button" class="black-button">Start Game</button>
+        </div>
+    </div>
+    <!-- Game over screen -->
+    <div id="game-over-screen" class="overlay">
+        <div class="overlay-content">
+            <p id="earned-sads">Earned: 0 SADS</p>
+            <button id="game-over-button" class="black-button">Game Over</button>
+        </div>
+    </div>
+    <script src="game.js"></script> <!-- Link to JavaScript for game logic -->
+</body>
+</html>

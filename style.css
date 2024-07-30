@@ -1,0 +1,351 @@
+/* Style for the overall container */
+body {
+    background-color: black; /* Set background to pure black */
+    color: white; /* Set text color to white */
+    font-family: Arial, sans-serif; /* Set font family */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+.container {
+    text-align: center; /* Center text inside container */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Maximum width for container */
+    padding: 20px; /* Padding inside container */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Space elements evenly */
+    height: 100%; /* Full height of container */
+    padding-top: 40px; /* Additional top padding for clearance */
+    padding-bottom: 40px; /* Additional bottom padding for clearance */
+}
+
+/* Style for the connect wallet button */
+.wallet-button {
+    background-color: white; /* Background color white */
+    color: black; /* Text color black */
+    padding: 10px; /* Padding inside button */
+    margin-top:10px;
+    margin-bottom: 10px; /* Margin below button */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+   
+}
+
+/* Style for the score display */
+.score {
+    background-color: white; /* Background color white */
+    color: black; /* Text color black */
+    padding: 40px; /* Padding inside score area */
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    border-radius: 50%; /* Make it circular */
+    margin: 0 auto 20px auto; /* Center and add margin below */
+    display: flex; /* Use flexbox for centering text */
+    flex-direction: column; /* Stack text vertically */
+    justify-content: center; /* Center text vertically */
+    align-items: center; /* Center text horizontally */
+}
+
+#score-value {
+    display: block; /* Display as block element */
+    font-size: 30px; /* Larger font size */
+}
+
+/* Style for the play game button */
+.play-button {
+    background-color: white; /* Background color white */
+    color: black; /* Text color black */
+    padding: 10px; /* Padding inside button */
+    border-radius: 10px; /* Rounded corners */
+    margin: 10px auto; /* Center and add margin below */
+    width: 80%; /* Width relative to container */
+    max-width: 300px; /* Maximum width for button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Style for the navigation bar */
+.navigation {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-around; /* Space items evenly */
+    background-color: white; /* Background color white */
+    color: black; /* Text color black */
+    padding: 10px; /* Padding inside navigation bar */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 20px; /* Move navigation up */
+    position: fixed; /* Ensure this line is present */
+    bottom: 0; /* Ensure this line is present */
+}
+
+.nav-item {
+    flex: 1; /* Equal width for all items */
+    text-align: center; /* Center text */
+    cursor: pointer; /* Pointer cursor on hover */
+    position: relative; /* Relative positioning for pseudo-element */
+}
+
+/* Add borders between navigation items */
+.nav-item:not(:last-child)::after {
+    content: ""; /* Empty content */
+    position: absolute; /* Absolute positioning */
+    right: 0; /* Position to the right */
+    top: 0; /* Position to the top */
+    height: 100%; /* Full height */
+    width: 1px; /* Thin border */
+    background-color: black; /* Border color black */
+}
+/* Tasks page title style */
+.title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    margin-top: 0; /* Remove top margin */
+}
+
+/* Style for the list of tasks */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Remove default margin to start just after the title */
+}
+
+.task-list li {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Added flex display to align items */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Distribute space between elements */
+    top: 0;
+}
+
+.task-list li::before {
+    content: '⚪'; /* Changed to open circle to match your description */
+    color: white; /* Ensure the circle is white */
+    margin-right: 10px; /* Space between circle and text */
+    font-size: 24px; /* Bigger circle */
+}
+
+.sads {
+    margin-left: auto; /* Push SADS value to the right */
+    padding-right: 10px; /* Right padding for clearance */
+}
+
+/* Style for the navigation bar to match other pages */
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    position: fixed; /* Make navigation fixed at the bottom */
+    bottom: 0; /* Align to bottom */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Match container width */
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+}
+
+/* Additional styles for friends list similar to task list */
+.friends-list-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    margin-top: 0; /* Spacing from title */
+}
+
+.friends-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0; /* Margin around the list */
+    margin-top: 0; /* Spacing from title */
+}
+
+.friends-list li {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative; /* Added for positioning the pseudo-element */
+    overflow: hidden;
+    display: flex; /* Added flex display to align items */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Distribute space between elements */
+}
+
+.friends-list li::before {
+    content: '⚪'; /* Circle symbol */
+    color: white; /* Ensure the circle is white */
+    margin-right: 10px; /* Space between circle and text */
+    font-size: 24px; /* Bigger circle */
+}
+
+.invite-button {
+    background-color: #f0f0f0; /* Light grey background */
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 auto 90px auto; /* Center and margin around */
+    width: 80%;
+    max-width: 300px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Overlay styles */
+.invitation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to overlay above all content */
+}
+
+.invitation-overlay.show {
+    display: flex; /* Show the overlay */
+}
+
+.invitation-content {
+    background: black; /* Background color */
+    color: white; /* Text color */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+
+/* Style for the black buttons */
+.black-button {
+    background-color: black; /* Background color black */
+    color: white; /* Text color white */
+    border: 2px solid white; /* White border */
+    padding: 10px; /* Padding inside button */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%;
+    margin-top: 10px; /* Adjust margin */
+    font-weight: bold; /* Bold text */
+}
+
+/* Game-specific styles */
+.game-container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#timer, #score {
+    color: white;
+    font-size: 20px;
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Set a fixed height for the game area */
+    border: 1px solid white; /* Optional border for visual clarity */
+    overflow: hidden; /* Hide overflow */
+}
+
+.falling-object {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ball {
+    background-color: white; /* White balls */
+}
+
+.bomb {
+    background-color: red; /* Red balls for bombs */
+}
+
+.time-adder {
+    background-color: yellow; /* Yellow balls for time adders */
+}
+
+.freezer {
+    background-color: skyblue; /* Sky color balls */
+}
+
+/* Overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    display: flex; /* Flexbox for centering */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* High z-index to overlay above all content */
+}
+
+.overlay-content {
+    background: black; /* Background color */
+    color: white; /* Text color */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+
+/* Style for the black buttons */
+.black-button {
+    background-color: black; /* Background color black */
+    color: white; /* Text color white */
+    border: 2px solid white; /* White border */
+    padding: 10px; /* Padding inside button */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%;
+    margin-top: 10px; /* Adjust margin */
+    font-weight: bold; /* Bold text */
+}
