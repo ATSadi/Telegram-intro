@@ -149,8 +149,9 @@ body {
     border-radius: 10px;
     position: fixed; /* Make navigation fixed at the bottom */
     bottom: 0; /* Align to bottom */
-    width: 100%; /* Full width */
-    max-width: 400px; /* Match container width */
+    width: 90%; /* Reduce width for better fit on mobile */
+    max-width: 360px; /* Match container width */
+    margin: 0 auto; /* Center align the navigation bar */
 }
 
 .nav-item {
