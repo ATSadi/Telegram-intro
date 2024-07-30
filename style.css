@@ -60,11 +60,13 @@ body {
     color: black; /* Text color black */
     padding: 10px; /* Padding inside button */
     border-radius: 10px; /* Rounded corners */
-    margin: 0 auto 90px auto; /* Center and add margin below */
+    margin: 0 auto 130px auto; /* Adjust margin below to move the button up */
     width: 80%; /* Width relative to container */
     max-width: 300px; /* Maximum width for button */
     cursor: pointer; /* Pointer cursor on hover */
 }
+
+
 
 /* Style for the navigation bar */
 .navigation {
@@ -210,7 +212,7 @@ body {
     color: black;
     padding: 10px;
     border-radius: 10px;
-    margin: 0 auto 90px auto; /* Center and margin around */
+    margin: 0 auto 130px auto; /* Center and margin around */
     width: 80%;
     max-width: 300px;
     cursor: pointer;
