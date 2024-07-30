@@ -28,11 +28,10 @@ body {
     background-color: white; /* Background color white */
     color: black; /* Text color black */
     padding: 10px; /* Padding inside button */
-    margin-top:10px;
-    margin-bottom: 10px; /* Margin below button */
+    margin-bottom: 20px; /* Margin below button */
     border-radius: 10px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
-   
+    margin-top: 20px; /* Move button down */
 }
 
 /* Style for the score display */
@@ -61,7 +60,7 @@ body {
     color: black; /* Text color black */
     padding: 10px; /* Padding inside button */
     border-radius: 10px; /* Rounded corners */
-    margin: 10px auto; /* Center and add margin below */
+    margin: 0 auto 90px auto; /* Center and add margin below */
     width: 80%; /* Width relative to container */
     max-width: 300px; /* Maximum width for button */
     cursor: pointer; /* Pointer cursor on hover */
@@ -76,8 +75,6 @@ body {
     padding: 10px; /* Padding inside navigation bar */
     border-radius: 10px; /* Rounded corners */
     margin-bottom: 20px; /* Move navigation up */
-    position: fixed; /* Ensure this line is present */
-    bottom: 0; /* Ensure this line is present */
 }
 
 .nav-item {
@@ -125,7 +122,7 @@ body {
     display: flex; /* Added flex display to align items */
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Distribute space between elements */
-    top: 0;
+    top: -250px;
 }
 
 .task-list li::before {
@@ -178,14 +175,14 @@ body {
     font-weight: bold;
     text-align: left;
     padding: 10px;
-    margin-top: 0; /* Spacing from title */
+    margin-top: -190px; /* Spacing from title */
 }
 
 .friends-list {
     list-style: none;
     padding: 0;
     margin: 20px 0; /* Margin around the list */
-    margin-top: 0; /* Spacing from title */
+    margin-top: -190px; /* Spacing from title */
 }
 
 .friends-list li {
