@@ -60,7 +60,7 @@ body {
     color: black; /* Text color black */
     padding: 10px; /* Padding inside button */
     border-radius: 10px; /* Rounded corners */
-    margin: 0 auto 130px auto; /* Adjust margin below to move the button up */
+    margin: 0 auto 150px auto; /* Adjust margin below to move the button up */
     width: 80%; /* Width relative to container */
     max-width: 300px; /* Maximum width for button */
     cursor: pointer; /* Pointer cursor on hover */
@@ -139,8 +139,6 @@ body {
     padding-right: 10px; /* Right padding for clearance */
 }
 
-/* Style for the navigation bar to match other pages */
-/* Style for the navigation bar to match other pages */
 .navigation {
     display: flex;
     justify-content: space-around;
@@ -149,10 +147,11 @@ body {
     padding: 10px;
     border-radius: 10px;
     position: fixed; /* Make navigation fixed at the bottom */
-    bottom: 10px; /* Move up by reducing bottom value */
-    left: 5%; /* Move slightly to the left */
+    bottom: 20px; /* Move up by reducing bottom value */
     width: 90%; /* Reduce width for better fit on mobile */
     max-width: 360px; /* Match container width */
+    left: 50%; /* Center align the navigation bar */
+    transform: translateX(-50%); /* Center the navigation bar */
     margin: 0 auto; /* Center align the navigation bar */
 }
 
@@ -172,6 +171,15 @@ body {
     width: 1px;
     background-color: black;
 }
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .navigation {
+        bottom: 30px; /* Move up slightly on larger screens */
+        width: 60%; /* Adjust width for larger screens */
+    }
+}
+
 
 
 /* Additional styles for friends list similar to task list */
@@ -216,7 +224,7 @@ body {
     color: black;
     padding: 10px;
     border-radius: 10px;
-    margin: 0 auto 130px auto; /* Center and margin around */
+    margin: 0 auto 150px auto; /* Center and margin around */
     width: 80%;
     max-width: 300px;
     cursor: pointer;
