@@ -140,6 +140,7 @@ body {
 }
 
 /* Style for the navigation bar to match other pages */
+/* Style for the navigation bar to match other pages */
 .navigation {
     display: flex;
     justify-content: space-around;
@@ -148,7 +149,8 @@ body {
     padding: 10px;
     border-radius: 10px;
     position: fixed; /* Make navigation fixed at the bottom */
-    bottom: 0; /* Align to bottom */
+    bottom: 10px; /* Move up by reducing bottom value */
+    left: 5%; /* Move slightly to the left */
     width: 90%; /* Reduce width for better fit on mobile */
     max-width: 360px; /* Match container width */
     margin: 0 auto; /* Center align the navigation bar */
@@ -170,6 +172,7 @@ body {
     width: 1px;
     background-color: black;
 }
+
 
 /* Additional styles for friends list similar to task list */
 .friends-list-title {
