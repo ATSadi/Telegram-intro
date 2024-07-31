@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -15,7 +15,7 @@ app.post('/create-user', (req, res) => {
     const userToken = Math.random().toString(36).substring(2, 15); // Generate a random token
     users[userId] = { id: userId, token: userToken, rewards: 0 };
     console.log('Generated token:', userToken); // Log generated token
-    res.json({ link: `http://localhost:3000/invite?token=${userToken}` });
+    res.json({ link: `https://teleintro.netlify.app/invite?token=${userToken}` }); // Update this URL to your frontend
 });
 
 // Endpoint to handle invitation
@@ -32,7 +32,7 @@ app.get('/invite', (req, res) => {
         }
     }
     if (found) {
-        res.send("Thank you for accepting the invite. Rewards have been assigned.");
+        res.redirect(`https://teleintro.netlify.app/?token=${token}`); // Redirect to your frontend with the token
     } else {
         console.log('Invalid token:', token);
         res.send("Invalid token.");
