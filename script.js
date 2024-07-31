@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inviteButton) {
         inviteButton.addEventListener('click', function () {
             console.log('Invite Friends button clicked');
-            fetch('http://localhost:3000/create-user', {
+            fetch('https://telegram-intro-1.onrender.com/create-user', { // Use your Render URL here
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
