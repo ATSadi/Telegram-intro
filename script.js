@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(`https://telegram-intro-1.onrender.com/user/${userId}`)
         .then(response => response.json())
         .then(data => {
-            scoreValue.textContent = `${data.score} SADS`;
+            scoreValue.textContent = data.score; // Only set the numeric score
         })
         .catch(error => {
             console.error('Failed to fetch user score:', error);

@@ -35,6 +35,12 @@ body {
 }
 
 /* Style for the score display */
+#score-value {
+    display: block; /* Display as block element */
+    font-size: 30px; /* Larger font size */
+}
+
+/* Ensure the score display is styled properly */
 .score {
     background-color: white; /* Background color white */
     color: black; /* Text color black */
@@ -49,10 +55,7 @@ body {
     align-items: center; /* Center text horizontally */
 }
 
-#score-value {
-    display: block; /* Display as block element */
-    font-size: 30px; /* Larger font size */
-}
+
 
 /* Style for the play game button */
 .play-button {

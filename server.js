@@ -40,20 +40,18 @@ app.post('/update-score', (req, res) => {
     const { userId, score } = req.body;
     console.log('Received score update request:', { userId, score });
 
-    db.run(
-        'INSERT INTO users (userId, score) VALUES (?, ?) ON CONFLICT(userId) DO UPDATE SET score = score + ?',
-        [userId, score, score],
-        (err) => {
-            if (err) {
-                console.error('Failed to update score:', err);
-                res.status(500).json({ error: 'Failed to update score' });
-            } else {
-                console.log('Score updated successfully for user:', userId);
-                res.json({ message: 'Score updated successfully' });
-            }
+    const query = `UPDATE users SET score = score + ? WHERE userId = ?`;
+    db.run(query, [score, userId], function(err) {
+        if (err) {
+            console.error('Failed to update score:', err);
+            res.status(500).json({ error: 'Failed to update score' });
+        } else {
+            console.log('Score updated successfully for user:', userId);
+            res.json({ message: 'Score updated successfully' });
         }
-    );
+    });
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
