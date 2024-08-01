@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let gameInterval;
     let freeze = false;
 
+    const userId = 'user1'; // Replace with actual user ID logic if necessary
+
     // Initially show the start screen and hide the game over screen
     startScreen.style.display = 'flex';
     gameOverScreen.style.display = 'none';
@@ -51,14 +53,29 @@ document.addEventListener('DOMContentLoaded', function () {
         dropFallingObject(object, speedMultiplier);
     }
 
-    function endGame() {
+    async function endGame() {
         clearInterval(gameInterval);
         earnedSadsElement.textContent = `Earned: ${score} SADS`;
+
+        try {
+            console.log('Sending score to backend:', { userId, score });
+            const response = await fetch('https://telegram-intro-1.onrender.com/update-score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId, score: score })
+            });
+            const data = await response.json();
+            console.log('Backend response:', data);
+        } catch (error) {
+            console.error('Error updating score:', error);
+        }
+
         gameOverScreen.style.display = 'flex';
     }
 
     function determineObjectType(randomType) {
-        // Increase balls frequency
         if (randomType < 0.8) { // Increased from 0.5 to 0.8
             return 'ball';
         } else if (randomType < 0.9) {
@@ -121,12 +138,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function dropFallingObject(object, speedMultiplier) {
         const fallInterval = setInterval(() => {
             if (!freeze && object) {
-                object.style.top = object.offsetTop + 7 * speedMultiplier + 'px'; // Decreased speed from 10 to 5
+                object.style.top = object.offsetTop + 7 * speedMultiplier + 'px'; // Decreased speed from 10 to 7
                 if (object.offsetTop > gameArea.offsetHeight) {
                     clearInterval(fallInterval);
                     gameArea.removeChild(object);
                 }
             }
-        }, 40); // Slowed down fall speed from 30 to 50
+        }, 40); // Slowed down fall speed from 30 to 40
     }
 });

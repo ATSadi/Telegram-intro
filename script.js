@@ -6,9 +6,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const invitationLink = document.getElementById('invitation-link');
     const copyLinkButton = document.getElementById('copy-link');
     const closeOverlayButton = document.getElementById('close-overlay');
+    const scoreValue = document.getElementById('score-value');
+
+    const userId = 'user1'; // Replace with actual user ID logic if necessary
 
     console.log('Play Button:', playButton);
     console.log('Invite Button:', inviteButton);
+
+    // Fetch user score on page load
+    fetch(`https://telegram-intro-1.onrender.com/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            scoreValue.textContent = `${data.score} SADS`;
+        })
+        .catch(error => {
+            console.error('Failed to fetch user score:', error);
+        });
 
     // Handle navigation
     navItems.forEach(item => {
@@ -36,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inviteButton) {
         inviteButton.addEventListener('click', function () {
             console.log('Invite Friends button clicked');
-            fetch('https://telegram-intro-1.onrender.com/create-user', { // Use your Render URL here
+            fetch('https://telegram-intro-1.onrender.com/create-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

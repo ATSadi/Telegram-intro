@@ -1,42 +1,58 @@
 const express = require('express');
 const cors = require('cors');
+const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
-let users = {}; // This will store user data and invitations
-
-// Endpoint to create a new user and generate an invite link
-app.post('/create-user', (req, res) => {
-    console.log('Received request to create user:', req.body); // Log request body
-    const userId = req.body.userId;
-    const userToken = Math.random().toString(36).substring(2, 15); // Generate a random token
-    users[userId] = { id: userId, token: userToken, rewards: 0 };
-    console.log('Generated token:', userToken); // Log generated token
-    res.json({ link: `https://teleintro.netlify.app/invite?token=${userToken}` }); // Update this URL to your frontend
+// Connect to SQLite database
+const db = new sqlite3.Database('./database.db', (err) => {
+    if (err) {
+        console.error('Could not connect to database', err);
+    } else {
+        console.log('Connected to database');
+    }
 });
 
-// Endpoint to handle invitation
-app.get('/invite', (req, res) => {
-    const token = req.query.token;
-    console.log('Received invite request with token:', token); // Log token
-    let found = false;
-    for (let userId in users) {
-        if (users[userId].token === token) {
-            users[userId].rewards += 200; // Increment rewards
-            found = true;
-            console.log('Token matched. Rewards updated.');
-            break;
+// Create users table if it doesn't exist
+db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId TEXT UNIQUE NOT NULL,
+    score INTEGER DEFAULT 0
+)`);
+
+// Endpoint to get user score
+app.get('/user/:userId', (req, res) => {
+    const userId = req.params.userId;
+    db.get('SELECT score FROM users WHERE userId = ?', [userId], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: 'Failed to retrieve user score' });
+        } else {
+            res.json({ score: row ? row.score : 0 });
         }
-    }
-    if (found) {
-        res.redirect(`https://teleintro.netlify.app/?token=${token}`); // Redirect to your frontend with the token
-    } else {
-        console.log('Invalid token:', token);
-        res.send("Invalid token.");
-    }
+    });
+});
+
+// Endpoint to update user score
+app.post('/update-score', (req, res) => {
+    const { userId, score } = req.body;
+    console.log('Received score update request:', { userId, score });
+
+    db.run(
+        'INSERT INTO users (userId, score) VALUES (?, ?) ON CONFLICT(userId) DO UPDATE SET score = score + ?',
+        [userId, score, score],
+        (err) => {
+            if (err) {
+                console.error('Failed to update score:', err);
+                res.status(500).json({ error: 'Failed to update score' });
+            } else {
+                console.log('Score updated successfully for user:', userId);
+                res.json({ message: 'Score updated successfully' });
+            }
+        }
+    );
 });
 
 app.listen(PORT, () => {
