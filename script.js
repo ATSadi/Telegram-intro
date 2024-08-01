@@ -8,20 +8,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeOverlayButton = document.getElementById('close-overlay');
     const scoreValue = document.getElementById('score-value');
 
-    const userId = 'user1'; // Replace with actual user ID logic if necessary
+    // Generate or retrieve user ID from local storage
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        userId = 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', userId);
+    }
 
+    console.log('User ID:', userId);
     console.log('Play Button:', playButton);
     console.log('Invite Button:', inviteButton);
 
     // Fetch user score on page load
-    fetch(`https://telegram-intro-1.onrender.com/user/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            scoreValue.textContent = data.score; // Only set the numeric score
-        })
-        .catch(error => {
-            console.error('Failed to fetch user score:', error);
-        });
+    if (scoreValue) {
+        fetch(`http://localhost:3000/user/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                scoreValue.textContent = data.score; // Only set the numeric score
+            })
+            .catch(error => {
+                console.error('Failed to fetch user score:', error);
+            });
+    }
 
     // Handle navigation
     navItems.forEach(item => {
@@ -49,12 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inviteButton) {
         inviteButton.addEventListener('click', function () {
             console.log('Invite Friends button clicked');
-            fetch('https://telegram-intro-1.onrender.com/create-user', {
+            fetch('http://localhost:3000/create-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId: 'user1' }) // Replace 'user1' with the actual user ID logic if necessary
+                body: JSON.stringify({ userId: userId }) // Send the actual user ID
             })
             .then(response => response.json())
             .then(data => {

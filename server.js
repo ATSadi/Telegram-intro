@@ -4,8 +4,8 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Use CORS middleware
+app.use(express.json()); // Middleware to parse JSON requests
 
 // Connect to SQLite database
 const db = new sqlite3.Database('./database.db', (err) => {
@@ -18,8 +18,7 @@ const db = new sqlite3.Database('./database.db', (err) => {
 
 // Create users table if it doesn't exist
 db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userId TEXT UNIQUE NOT NULL,
+    userId TEXT PRIMARY KEY,
     score INTEGER DEFAULT 0
 )`);
 
@@ -40,7 +39,7 @@ app.post('/update-score', (req, res) => {
     const { userId, score } = req.body;
     console.log('Received score update request:', { userId, score });
 
-    const query = `UPDATE users SET score = score + ? WHERE userId = ?`;
+    const query = `UPDATE users SET score = ? WHERE userId = ?`;
     db.run(query, [score, userId], function(err) {
         if (err) {
             console.error('Failed to update score:', err);
@@ -52,6 +51,19 @@ app.post('/update-score', (req, res) => {
     });
 });
 
+// Endpoint to create user and generate invite link
+app.post('/create-user', (req, res) => {
+    const { userId } = req.body;
+    const inviteLink = `http://localhost:3000/?token=${userId}`;
+    db.run(`INSERT OR IGNORE INTO users (userId, score) VALUES (?, 0)`, [userId], function(err) {
+        if (err) {
+            console.error('Failed to create user:', err);
+            res.status(500).json({ error: 'Failed to create user' });
+        } else {
+            res.json({ link: inviteLink });
+        }
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
