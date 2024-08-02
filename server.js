@@ -54,7 +54,7 @@ app.post('/update-score', (req, res) => {
 // Endpoint to create user and generate invite link
 app.post('/create-user', (req, res) => {
     const { userId } = req.body;
-    const inviteLink = `http://localhost:3000/?token=${userId}`;
+    const inviteLink = `https://teleintro.netlify.app/?token=${userId}`;
     db.run(`INSERT OR IGNORE INTO users (userId, score) VALUES (?, 0)`, [userId], function(err) {
         if (err) {
             console.error('Failed to create user:', err);

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetch user score on page load
     if (scoreValue) {
-        fetch(`http://localhost:3000/user/${userId}`)
+        fetch(`https://telegram-intro-1.onrender.com/user/${userId}`)
             .then(response => response.json())
             .then(data => {
                 scoreValue.textContent = data.score; // Only set the numeric score
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (inviteButton) {
         inviteButton.addEventListener('click', function () {
             console.log('Invite Friends button clicked');
-            fetch('http://localhost:3000/create-user', {
+            fetch('https://telegram-intro-1.onrender.com/create-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
