@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -68,15 +69,28 @@ app.post('/update-score', (req, res) => {
     const { userId, score } = req.body;
     console.log('Received score update request:', { userId, score });
 
-    const query = `UPDATE users SET score = ? WHERE userId = ?`;
-    db.query(query, [score, userId], (err, results) => {
+    const getUserScoreQuery = 'SELECT score FROM users WHERE userId = ?';
+    const updateUserScoreQuery = 'UPDATE users SET score = ? WHERE userId = ?';
+
+    db.query(getUserScoreQuery, [userId], (err, results) => {
         if (err) {
-            console.error('Failed to update score:', err);
-            res.status(500).json({ error: 'Failed to update score' });
-        } else {
-            console.log('Score updated successfully for user:', userId);
-            res.json({ message: 'Score updated successfully' });
+            console.error('Failed to retrieve user score:', err);
+            res.status(500).json({ error: 'Failed to retrieve user score' });
+            return;
         }
+
+        const currentScore = results[0] ? results[0].score : 0;
+        const newScore = currentScore + score;
+
+        db.query(updateUserScoreQuery, [newScore, userId], (err, results) => {
+            if (err) {
+                console.error('Failed to update score:', err);
+                res.status(500).json({ error: 'Failed to update score' });
+            } else {
+                console.log('Score updated successfully for user:', userId);
+                res.json({ message: 'Score updated successfully' });
+            }
+        });
     });
 });
 
