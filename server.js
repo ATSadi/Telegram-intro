@@ -1,14 +1,35 @@
 const express = require('express');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const mysql = require('mysql');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors()); // Use CORS middleware
 app.use(express.json()); // Middleware to parse JSON requests
 
-// Connect to SQLite database
-const db = new sqlite3.Database('./database.db', (err) => {
+// Disable 'x-powered-by' header
+app.disable('x-powered-by');
+
+// Set security headers
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    res.set('X-Content-Type-Options', 'nosniff');
+    next();
+});
+
+// Connect to MySQL database
+const db = mysql.createConnection({
+    host: 'teleintrodatabase-ahnafsoad-3b27.e.aivencloud.com',
+    user: 'avnadmin',
+    password: 'AVNS_hjwB7kf7OS2XQTPbln',
+    database: 'defaultdb',
+    port: 16361,
+    ssl: {
+        ca: fs.readFileSync('certs/ca.pem')
+    }
+});
+
+db.connect(err => {
     if (err) {
         console.error('Could not connect to database', err);
     } else {
@@ -17,19 +38,27 @@ const db = new sqlite3.Database('./database.db', (err) => {
 });
 
 // Create users table if it doesn't exist
-db.run(`CREATE TABLE IF NOT EXISTS users (
-    userId TEXT PRIMARY KEY,
-    score INTEGER DEFAULT 0
-)`);
+const createTableQuery = `
+CREATE TABLE IF NOT EXISTS users (
+    userId VARCHAR(255) PRIMARY KEY,
+    score INT DEFAULT 0
+)`;
+db.query(createTableQuery, (err, results) => {
+    if (err) {
+        console.error('Failed to create users table', err);
+    } else {
+        console.log('Users table ready');
+    }
+});
 
 // Endpoint to get user score
 app.get('/user/:userId', (req, res) => {
     const userId = req.params.userId;
-    db.get('SELECT score FROM users WHERE userId = ?', [userId], (err, row) => {
+    db.query('SELECT score FROM users WHERE userId = ?', [userId], (err, results) => {
         if (err) {
             res.status(500).json({ error: 'Failed to retrieve user score' });
         } else {
-            res.json({ score: row ? row.score : 0 });
+            res.json({ score: results[0] ? results[0].score : 0 });
         }
     });
 });
@@ -40,7 +69,7 @@ app.post('/update-score', (req, res) => {
     console.log('Received score update request:', { userId, score });
 
     const query = `UPDATE users SET score = ? WHERE userId = ?`;
-    db.run(query, [score, userId], function(err) {
+    db.query(query, [score, userId], (err, results) => {
         if (err) {
             console.error('Failed to update score:', err);
             res.status(500).json({ error: 'Failed to update score' });
@@ -55,7 +84,8 @@ app.post('/update-score', (req, res) => {
 app.post('/create-user', (req, res) => {
     const { userId } = req.body;
     const inviteLink = `https://teleintro.netlify.app/?token=${userId}`;
-    db.run(`INSERT OR IGNORE INTO users (userId, score) VALUES (?, 0)`, [userId], function(err) {
+    const query = `INSERT INTO users (userId, score) VALUES (?, 0) ON DUPLICATE KEY UPDATE userId=userId`;
+    db.query(query, [userId], (err, results) => {
         if (err) {
             console.error('Failed to create user:', err);
             res.status(500).json({ error: 'Failed to create user' });

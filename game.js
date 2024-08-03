@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearInterval(gameInterval);
         earnedSadsElement.textContent = `Earned: ${score} SADS`;
         try {
-            const response = await fetch('http://localhost:3000/update-score', {
+            const response = await fetch('https://telegram-intro.onrender.com/update-score', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId, score })
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch and update the user's balance
     async function updateBalance() {
         try {
-            const response = await fetch(`http://localhost:3000/user/${userId}`);
+            const response = await fetch(`https://telegram-intro.onrender.com/user/${userId}`);
             const data = await response.json();
             scoreElement.textContent = `Score: ${data.score}`;
         } catch (error) {
