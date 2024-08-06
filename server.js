@@ -20,19 +20,13 @@ app.use((req, res, next) => {
     next();
 });
 
-// Read SSL certificate
-const sslOptions = {
-    ca: fs.readFileSync(process.env.SSL_CA, 'utf8')
-};
-
 // Connect to MySQL database
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    ssl: sslOptions
+    port: process.env.DB_PORT
 });
 
 db.connect(err => {
