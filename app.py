@@ -35,6 +35,8 @@ def get_db_connection():
 @app.route('/user/<user_id>', methods=['GET'])
 def get_user_score(user_id):
     cnx = get_db_connection()
+    if not cnx:
+        return jsonify({'error': 'Database connection failed'}), 500
     cursor = cnx.cursor(dictionary=True)
     cursor.execute("SELECT score FROM users WHERE userId = %s", (user_id,))
     result = cursor.fetchone()
@@ -51,6 +53,8 @@ def update_user_score():
     user_id = data['userId']
     score = data['score']
     cnx = get_db_connection()
+    if not cnx:
+        return jsonify({'error': 'Database connection failed'}), 500
     cursor = cnx.cursor()
     cursor.execute("UPDATE users SET score = %s WHERE userId = %s", (score, user_id))
     cnx.commit()
@@ -62,8 +66,10 @@ def update_user_score():
 def create_user():
     data = request.get_json()
     user_id = data['userId']
-    invite_link = f"https://yourdomain.com/?token={user_id}"
+    invite_link = f"https://teleintro.netlify.app/?token={user_id}"
     cnx = get_db_connection()
+    if not cnx:
+        return jsonify({'error': 'Database connection failed'}), 500
     cursor = cnx.cursor()
     cursor.execute("INSERT INTO users (userId, score) VALUES (%s, 0) ON DUPLICATE KEY UPDATE userId=userId", (user_id,))
     cnx.commit()
