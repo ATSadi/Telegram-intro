@@ -5,10 +5,10 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 
-app.use(cors()); // Use CORS middleware
-app.use(express.json()); // Middleware to parse JSON requests
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Enable JSON body parsing
 
 // Disable 'x-powered-by' header
 app.disable('x-powered-by');
@@ -20,6 +20,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Read SSL certificate
+const sslOptions = {
+    ca: fs.readFileSync(process.env.SSL_CA, 'utf8')
+};
+
 // Connect to MySQL database
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -27,9 +32,7 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
-    ssl: {
-        ca: fs.readFileSync(process.env.SSL_CA)
-    }
+    ssl: sslOptions
 });
 
 db.connect(err => {
