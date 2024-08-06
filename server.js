@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -82,12 +82,14 @@ app.post('/update-score', (req, res) => {
         const currentScore = results[0] ? results[0].score : 0;
         const newScore = currentScore + score;
 
+        console.log(`Current Score: ${currentScore}, New Score: ${newScore}`);
+
         db.query(updateUserScoreQuery, [newScore, userId], (err, results) => {
             if (err) {
                 console.error('Failed to update score:', err);
                 res.status(500).json({ error: 'Failed to update score' });
             } else {
-                console.log('Score updated successfully for user:', userId);
+                console.log(`Score updated successfully for user ${userId}: ${newScore}`);
                 res.json({ message: 'Score updated successfully' });
             }
         });
