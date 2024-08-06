@@ -5,6 +5,8 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+require('dotenv').config();
+
 app.use(cors()); // Use CORS middleware
 app.use(express.json()); // Middleware to parse JSON requests
 
@@ -20,13 +22,13 @@ app.use((req, res, next) => {
 
 // Connect to MySQL database
 const db = mysql.createConnection({
-    host: 'teleintrodatabase-ahnafsoad-3b27.e.aivencloud.com',
-    user: 'avnadmin',
-    password: 'AVNS_hjwB7kf7OS2XQTPbln',
-    database: 'defaultdb',
-    port: 16361,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
     ssl: {
-        ca: fs.readFileSync('certs/ca.pem')
+        ca: fs.readFileSync(process.env.SSL_CA)
     }
 });
 
