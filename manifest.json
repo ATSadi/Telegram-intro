@@ -1,0 +1,7 @@
+{
+    "name": "TON Connectivity",
+    "description": "Connect your Ton wallet to get SADS direcctly to your wallet adrress!!!",
+    "url": "https://teleintro.netlify.app",
+    "permissions": ["ton", "ton_wallet_connect"]
+  }
+  
