@@ -3,6 +3,8 @@ import mysql.connector
 from mysql.connector import errorcode
 import os
 from dotenv import load_dotenv
+import asyncio
+from pytonconnect import TonConnect
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -77,5 +79,14 @@ def create_user():
     cnx.close()
     return jsonify({'link': invite_link})
 
+# TON Connect integration
+async def main():
+    connector = TonConnect(
+        manifest_url='https://teleintro.netlify.app/tonconnect-manifest.json',
+    )
+    is_connected = await connector.restore_connection()
+    print('is_connected:', is_connected)
+
 if __name__ == '__main__':
+    asyncio.get_event_loop().run_until_complete(main())
     app.run(debug=True)

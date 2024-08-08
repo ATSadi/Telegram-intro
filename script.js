@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const tonConnect = new TonConnect({
+        manifestUrl: 'https://teleintro.netlify.app/tonconnect-manifest.json'
+    });
+
+    async function connectWallet() {
+        try {
+            const wallet = await tonConnect.connect();
+            console.log('Wallet connected:', wallet);
+        } catch (error) {
+            console.error('Failed to connect wallet:', error);
+        }
+    }
+
+    document.getElementById('connect-wallet').addEventListener('click', connectWallet);
+
+    // Existing script content
     const navItems = document.querySelectorAll('.nav-item');
     const playButton = document.querySelector('.play-button');
     const inviteButton = document.querySelector('.invite-button');
@@ -8,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeOverlayButton = document.getElementById('close-overlay');
     const scoreValue = document.getElementById('score-value');
 
-    // Generate or retrieve user ID from local storage
     let userId = localStorage.getItem('userId');
     if (!userId) {
         userId = 'user_' + Math.random().toString(36).substr(2, 9);
@@ -19,19 +34,17 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Play Button:', playButton);
     console.log('Invite Button:', inviteButton);
 
-    // Fetch user score on page load
     if (scoreValue) {
         fetch(`https://telegram-intro.onrender.com/user/${userId}`)
             .then(response => response.json())
             .then(data => {
-                scoreValue.textContent = data.score; // Only set the numeric score
+                scoreValue.textContent = data.score;
             })
             .catch(error => {
                 console.error('Failed to fetch user score:', error);
             });
     }
 
-    // Handle navigation
     navItems.forEach(item => {
         item.addEventListener('click', function () {
             console.log('Navigation item clicked:', this.textContent.trim());
@@ -45,15 +58,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Handle the Play Game button
     if (playButton) {
         playButton.addEventListener('click', function () {
             console.log('Play Game button clicked');
-            window.location.href = 'game.html'; // Redirects to the game interface
+            window.location.href = 'game.html';
         });
     }
 
-    // Invite Friends button functionality
     if (inviteButton) {
         inviteButton.addEventListener('click', function () {
             console.log('Invite Friends button clicked');
@@ -62,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userId: userId }) // Send the actual user ID
+                body: JSON.stringify({ userId: userId })
             })
             .then(response => response.json())
             .then(data => {
@@ -76,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Handle the copy link button functionality
     if (copyLinkButton) {
         copyLinkButton.addEventListener('click', function () {
             console.log('Copy Link button clicked');
@@ -86,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Close the invitation overlay
     if (closeOverlayButton) {
         closeOverlayButton.addEventListener('click', function () {
             console.log('Close Overlay button clicked');
