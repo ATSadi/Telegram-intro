@@ -363,3 +363,37 @@ body {
     margin-top: 10px; /* Adjust margin */
     font-weight: bold; /* Bold text */
 }
+#wallet-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.wallet-list-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.wallet-option {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #6200EA;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wallet-option:hover {
+    background-color: #3700B3;
+}

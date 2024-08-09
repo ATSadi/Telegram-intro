@@ -93,4 +93,39 @@ document.addEventListener('DOMContentLoaded', function () {
             overlay.style.display = 'none';
         });
     }
+
+    // Handle the Connect Wallet button
+    const wallets = [
+        { name: 'Tonkeeper', url: 'ton://connect/tonkeeper' },
+        { name: 'Tonhub', url: 'ton://connect/tonhub' },
+        { name: 'MyTonWallet', url: 'https://mytonwallet.org/connect' },
+        // Add other wallets as needed
+    ];
+
+    async function showWalletList() {
+        const walletListHtml = wallets.map(wallet => `
+            <div class="wallet-option" data-url="${wallet.url}">
+                ${wallet.name}
+            </div>
+        `).join('');
+
+        const walletListContainer = document.createElement('div');
+        walletListContainer.id = 'wallet-list';
+        walletListContainer.innerHTML = `
+            <div class="wallet-list-content">
+                <h3>Choose wallet to connect</h3>
+                ${walletListHtml}
+            </div>
+        `;
+        document.body.appendChild(walletListContainer);
+
+        document.querySelectorAll('.wallet-option').forEach(option => {
+            option.addEventListener('click', function () {
+                const walletUrl = this.getAttribute('data-url');
+                window.location.href = walletUrl;
+            });
+        });
+    }
+
+    document.getElementById('connect-wallet').addEventListener('click', showWalletList);
 });
