@@ -12,7 +12,9 @@ body {
 
 .container {
     text-align: center; /* Center text inside container */
-    width: 100%; /* Full width */
+    width: 92%; /* Full width */
+    margin : auto;
+    border: 2px solid white;
     max-width: 400px; /* Maximum width for container */
     padding: 20px; /* Padding inside container */
     display: flex; /* Use flexbox for layout */
@@ -401,7 +403,7 @@ body {
 /* Style for the Connect Wallet button */
 #ton-connect {
     position: absolute; /* Use absolute positioning */
-    top: 50%; /* Adjust this value to move the button further down */
+    top: 60%; /* Adjust this value to move the button further down */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center properly */
     background-color: #e6e9ec; /* Blue background */
