@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Mini Game</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="wallet-button" id="connect-wallet">
-            Connect Wallet
-        </div>
+        <div id="ton-connect"></div> <!-- The TonConnect button -->
         <div class="score">
             <span id="score-value">0</span>
             <strong style="font-size: 30px;">SADS</strong>
@@ -24,8 +23,26 @@
             <div class="nav-item">FRIENDS</div>
         </div>
     </div>
-    <!-- Correctly include the TonConnect SDK -->
-    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
+
+    <!-- Initialize the TonConnect UI -->
+    <script>
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://teleintro.netlify.app/tonconnect-manifest.json',
+            buttonRootId: 'ton-connect'
+        });
+    </script>
+    
+
+    <script>
+        async function connectToWallet() {
+            const connectedWallet = await tonConnectUI.connectWallet();
+            console.log(connectedWallet);
+        }
+
+        // Example: Trigger connection programmatically
+        // document.getElementById('your-custom-button-id').addEventListener('click', connectToWallet);
+    </script>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -41,6 +41,7 @@ body {
 }
 
 /* Ensure the score display is styled properly */
+/* Style for the circle setup */
 .score {
     background-color: white; /* Background color white */
     color: black; /* Text color black */
@@ -48,7 +49,7 @@ body {
     width: 150px; /* Fixed width */
     height: 150px; /* Fixed height */
     border-radius: 50%; /* Make it circular */
-    margin: 0 auto 20px auto; /* Center and add margin below */
+    margin: 30px auto 20px auto; /* Center and add margin below, increase top margin */
     display: flex; /* Use flexbox for centering text */
     flex-direction: column; /* Stack text vertically */
     justify-content: center; /* Center text vertically */
@@ -397,3 +398,20 @@ body {
 .wallet-option:hover {
     background-color: #3700B3;
 }
+/* Style for the Connect Wallet button */
+#ton-connect {
+    position: absolute; /* Use absolute positioning */
+    top: 50%; /* Adjust this value to move the button further down */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center properly */
+    background-color: #e6e9ec; /* Blue background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding inside the button */
+    border-radius: 5px; /* Slightly rounded corners */
+    text-align: center; /* Center the text inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text */
+    display: inline-block; /* Display as an inline-block to respect padding */
+    box-sizing: border-box; /* Include padding in width */
+}
+

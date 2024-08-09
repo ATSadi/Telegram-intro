@@ -94,68 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Initialize TonConnect SDK
-    const tonConnect = new TonConnect({
-        manifestUrl: 'https://teleintro.netlify.app/tonconnect-manifest.json'
-    });
-
-    // Handle wallet connection
-    async function connectWallet() {
+    // Example: Programmatically connect to wallet if needed
+    async function connectToWallet() {
         try {
-            const wallet = await tonConnect.connect();
-            console.log('Wallet connected:', wallet);
+            const connectedWallet = await tonConnectUI.connectWallet();
+            console.log('Wallet connected:', connectedWallet);
             // Handle connected wallet information (e.g., display wallet address)
         } catch (error) {
-            console.error('Failed to connect wallet:', error);
+            console.error('Error connecting to wallet:', error);
         }
     }
 
-    // Check if already connected on page load
-    (async function restoreConnection() {
-        try {
-            const isConnected = await tonConnect.restoreConnection();
-            if (isConnected) {
-                const walletInfo = await tonConnect.getWalletInfo();
-                console.log('Already connected to:', walletInfo);
-                // Display wallet address or other info on your site
-            }
-        } catch (error) {
-            console.error('Failed to restore connection:', error);
-        }
-    })();
-
-    // Handle the Connect Wallet button
-    const wallets = [
-        { name: 'Tonkeeper', url: 'ton://connect/tonkeeper' },
-        { name: 'Tonhub', url: 'ton://connect/tonhub' },
-        { name: 'MyTonWallet', url: 'https://mytonwallet.org/connect' },
-        // Add other wallets as needed
-    ];
-
-    async function showWalletList() {
-        const walletListHtml = wallets.map(wallet => `
-            <div class="wallet-option" data-url="${wallet.url}">
-                ${wallet.name}
-            </div>
-        `).join('');
-
-        const walletListContainer = document.createElement('div');
-        walletListContainer.id = 'wallet-list';
-        walletListContainer.innerHTML = `
-            <div class="wallet-list-content">
-                <h3>Choose wallet to connect</h3>
-                ${walletListHtml}
-            </div>
-        `;
-        document.body.appendChild(walletListContainer);
-
-        document.querySelectorAll('.wallet-option').forEach(option => {
-            option.addEventListener('click', function () {
-                const walletUrl = this.getAttribute('data-url');
-                window.location.href = walletUrl;
-            });
-        });
-    }
-
-    document.getElementById('connect-wallet').addEventListener('click', showWalletList);
+    // Example: Trigger connection on custom button click
+    // document.getElementById('your-custom-button-id').addEventListener('click', connectToWallet);
 });
